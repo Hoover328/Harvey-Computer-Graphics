@@ -101,14 +101,14 @@ public class Model
         texture_index_list.Add(new Vector3Int(10, 14, 11)); //11
         texture_index_list.Add(new Vector3Int(15, 11, 14)); //12
         texture_index_list.Add(new Vector3Int(7, 15, 3)); //13
-        texture_index_list.Add(new Vector3Int(15, 3, 23)); //14
-        texture_index_list.Add(new Vector3Int(19, 15, 23)); //15
+        texture_index_list.Add(new Vector3Int(15, 23, 3)); //14
+        texture_index_list.Add(new Vector3Int(19, 23, 15)); //15
 
-        texture_index_list.Add(new Vector3Int(3, 23, 0)); //16
-        texture_index_list.Add(new Vector3Int(20, 0, 23)); //17
+        texture_index_list.Add(new Vector3Int(32, 34, 33)); //16
+        texture_index_list.Add(new Vector3Int(35, 33, 34)); //17
 
-        texture_index_list.Add(new Vector3Int(1, 21, 2)); //18
-        texture_index_list.Add(new Vector3Int(22, 2, 21)); //19
+        texture_index_list.Add(new Vector3Int(32, 34, 33)); //18
+        texture_index_list.Add(new Vector3Int(35, 33, 34)); //19
 
         texture_index_list.Add(new Vector3Int(24, 26, 25)); //20
         texture_index_list.Add(new Vector3Int(27, 25, 26)); //21
@@ -125,20 +125,20 @@ public class Model
         texture_index_list.Add(new Vector3Int(28, 30, 29)); //28
         texture_index_list.Add(new Vector3Int(31, 29, 30)); //29
 
-        texture_index_list.Add(new Vector3Int(18, 22, 17)); //30
-        texture_index_list.Add(new Vector3Int(21, 22, 17)); //31
-
         texture_index_list.Add(new Vector3Int(28, 30, 29)); //30
         texture_index_list.Add(new Vector3Int(31, 29, 30)); //31
 
-        texture_index_list.Add(new Vector3Int(4, 8, 7)); //34
-        texture_index_list.Add(new Vector3Int(11, 8, 7)); //35
+        texture_index_list.Add(new Vector3Int(28, 30, 29)); //32
+        texture_index_list.Add(new Vector3Int(31, 29, 30)); //33
 
-        texture_index_list.Add(new Vector3Int(14, 18, 13)); //36
-        texture_index_list.Add(new Vector3Int(17, 18, 13)); //37
+        texture_index_list.Add(new Vector3Int(28, 30, 29)); //34
+        texture_index_list.Add(new Vector3Int(31, 29, 30)); //35
 
-        texture_index_list.Add(new Vector3Int(12, 16, 15)); //38
-        texture_index_list.Add(new Vector3Int(19, 16, 15)); //39
+        texture_index_list.Add(new Vector3Int(28, 30, 29)); //36
+        texture_index_list.Add(new Vector3Int(31, 29, 30)); //37
+
+        texture_index_list.Add(new Vector3Int(28, 30, 29)); //38
+        texture_index_list.Add(new Vector3Int(31, 29, 30)); //39
     }
 
     private void addTextureCoords()
@@ -179,10 +179,10 @@ public class Model
         texture_coordinates.Add(new Vector2(120 , 372)); //30
         texture_coordinates.Add(new Vector2(148 , 372)); //31
 
-      /*  texture_coordinates.Add(new Vector2(313, 330)); //32
-        texture_coordinates.Add(new Vector2(346, 330)); //33
-        texture_coordinates.Add(new Vector2(313, 490)); //34
-        texture_coordinates.Add(new Vector2(346, 490)); //35*/
+        texture_coordinates.Add(new Vector2(563, 100)); //32
+        texture_coordinates.Add(new Vector2(616, 100)); //33
+        texture_coordinates.Add(new Vector2(563, 259)); //34
+        texture_coordinates.Add(new Vector2(616, 259)); //35
 
         texture_coordinates = normaliseTextureVerts(1024f);
 
