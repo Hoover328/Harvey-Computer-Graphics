@@ -21,7 +21,7 @@ public class GrapchicsPipeline : MonoBehaviour
         ///Rotation by 39 degrees about (21, -2, -2).normalised
         ///
 
-        Vector3 axis = (new Vector3(21, -2, -2));
+        Vector3 axis = (new Vector3(21, -2, -2).normalized);
 
         Matrix4x4 rotationMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(39, axis), Vector3.one);
         print("Rotation Matrix");
@@ -65,7 +65,7 @@ public class GrapchicsPipeline : MonoBehaviour
 
         Vector3 camPosition = new Vector3(23, 1, 48);
         Vector3 camLookAt = new Vector3(-2, 3, 4);
-        Vector3 camUp = new Vector3(-1, -2, 21);
+        Vector3 camUp = new Vector3(-1, -2, 21).normalized;
         print("Look at");
 
         Matrix4x4 lookAtMatrix = Matrix4x4.LookAt(camPosition, camLookAt, camUp);
@@ -81,6 +81,7 @@ public class GrapchicsPipeline : MonoBehaviour
         Display(perspectiveMatrix);
 
         List<Vector4> imageAfterPerspective = MatrixTransform(perspectiveMatrix, imageAfterLookAtMatrix);
+        print("Image After Perspective");
         Display(imageAfterPerspective);
 
         Matrix4x4 everythingMatrix = perspectiveMatrix * lookAtMatrix * singleMatrixOfTransformations;
@@ -90,6 +91,8 @@ public class GrapchicsPipeline : MonoBehaviour
         List<Vector4> imageAfterEverything = MatrixTransform(everythingMatrix, verts);
         print("Image After Everything");
         Display(imageAfterEverything);
+
+        
 
 
     }
