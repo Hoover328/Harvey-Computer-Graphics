@@ -92,8 +92,8 @@ public class GrapchicsPipeline : MonoBehaviour
         print("Image After Everything");
         Display(imageAfterEverything);
 
-        
-
+        print("VERTS DIVIDED#############################");
+        Display(VertsDividedByZ(imageAfterEverything));
 
     }
 
@@ -137,6 +137,17 @@ public class GrapchicsPipeline : MonoBehaviour
         {
             print(v);
         }
+    }
+
+    private List<Vector4> VertsDividedByZ(List<Vector4> verts)
+    {
+        List<Vector4> vertsDivided = new List<Vector4>();
+        foreach (Vector4 v in verts)
+        {
+             vertsDivided.Add(new Vector3(v.x / v.z, v.y / v.z, 1));
+        }
+
+        return vertsDivided;
     }
 
     // Update is called once per frame
