@@ -133,7 +133,7 @@ public class GrapchicsPipeline : MonoBehaviour
 
     void Display(List<Vector4> verts)
     {
-        foreach (Vector3 v in verts)
+        foreach (Vector4 v in verts)
         {
             print(v);
         }
