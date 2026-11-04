@@ -5,7 +5,8 @@ public class OutCodeDriver : MonoBehaviour
 
     private void Start()
     {
-
+        Vector2 point1 = new Vector2(1.5f, 0.2f);
+        Vector2 point2 = new Vector2(-5f, 1f);
 
         OutCode outCode1 = new OutCode(new Vector2(1.5f, 0.2f));
         OutCode outCode2 = new OutCode(new Vector2(-5f, -0.4f));
@@ -22,6 +23,8 @@ public class OutCodeDriver : MonoBehaviour
         bool isEqual = outCode1 == outCode2;
         string test5 = isEqual.ToString();
 
+        bool test6 = outCode1.LineClip(ref point1, ref point2);
+        
 
 
         print("OUTCODE TESTS################################");
@@ -30,5 +33,9 @@ public class OutCodeDriver : MonoBehaviour
         print(test3);
         print(test4);
         print(test5);
+        print("LINECLIPPING TESTS################################");
+        print(test6);
+
+
     }
 }
