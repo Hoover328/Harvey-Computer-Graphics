@@ -79,67 +79,88 @@ public class OutCode
             return LineClip(ref end, ref start);
         }
 
-        float m = GetM(ref start, ref end);
+        Vector2 intersection = Intersect(ref start, ref end);
 
-        if(O_Start.up == true)
+        if (float.IsNaN(intersection.x) || float.IsNaN(intersection.y))
         {
-            Vector2 intersectionTop = new Vector2((start.x + (1 / m) * (1 - start.y)), 1);
-            start = intersectionTop;
+            float m = (end.y - start.y) / (end.x - start.x);
 
-            LineClip(ref start, ref end);
+            if (O_Start.up == true)
+            {
+                intersection = new Vector2(start.x + (1f / m) * (1f - start.y), 1f);
+            }
+
+            if (O_Start.down == true)
+            {
+                intersection = new Vector2(start.x + (1f / m) * (-1f - start.y), -1f);
+            }
+
+            if (O_Start.left == true)
+            {
+                intersection = new Vector2(-1f, start.y + (m * (-1f - start.x)));
+
+            }
+
+            if (O_Start.right == true)
+            {
+                intersection = new Vector2(1f, start.y + (m * (1f - start.x)));
+            }
         }
-
-        if(O_Start.down == true)
-        {
-            Vector2 intersectionBottom = new Vector2((start.x + (1 / m) * (-1 - start.y)), -1);
-            start = intersectionBottom;
-
-            LineClip(ref start, ref end);
-        }
-
-        if (O_Start.left == true)
-        {
-            Vector2 intersectionLeft = new Vector2(-1, start.y + (m * (-1 - start.x)));
-            start = intersectionLeft;
-
-            LineClip(ref start, ref end);
-        }
-
-        if (O_Start.right == true)
-        {
-            Vector2 intersectionRight = new Vector2(1, start.y + (m * (1 - start.x)));
-            start = intersectionRight;
-
-            LineClip(ref start, ref end);
-
-        }
-
-        return false;
-
+        start = intersection;
+        return LineClip(ref start, ref end);
     }
 
-    public static float GetM(ref Vector2 start, ref Vector2 end)
+    public static Vector2 Intersect(ref Vector2 start, ref Vector2 end)
     {
-        float m;
+        OutCode O_Start = new OutCode(start);
+        OutCode O_End = new OutCode(end);
+
         if (start.x == end.x)
         {
-            m = 1;
-            return m;
+            if(O_Start.displayOutcode() == "1000")
+            {
+                return new Vector2(start.x, 1);
+            }
+
+            else if (O_End.displayOutcode() == "1000")
+            {
+                return new Vector2(start.x, 1);
+            }
+
+            if (O_Start.displayOutcode() == "0100")
+            {
+                return new Vector2(start.x, -1);
+            }
+
+            else if (O_End.displayOutcode() == "0100")
+            {
+                return new Vector2(start.x, -1);
+            }
         }
 
-        if (start.y == end.y)
+        if(start.y == end.y)
         {
-            m = 1;
-            return m;
+            if (O_Start.displayOutcode() == "0010")
+            {
+                return new Vector2(-1, start.y);
+            }
 
+            else if (O_End.displayOutcode() == "0010")
+            {
+                return new Vector2(-1, start.y);
+            }
+
+            if (O_Start.displayOutcode() == "0001")
+            {
+                return new Vector2(1, start.y);
+            }
+
+            else if (O_End.displayOutcode() == "0001")
+            {
+                return new Vector2(1, start.y);
+            }
         }
-
-        else
-        {
-            m = (end.y - start.y) / (end.x - stadrt.x);
-            return m;
-
-        }
+        return new Vector2(float.NaN, float.NaN);
     }
 
 }

@@ -17,7 +17,7 @@ public class Model
         addVertices();
         addFaces();
         addTextureCoords();
-        addTexttureIndex();
+        addTextureIndex();
         addNormals();
   
     }
@@ -84,7 +84,7 @@ public class Model
 
 
     }
-    private void addTexttureIndex()
+    private void addTextureIndex()
     {
         texture_index_list.Add(new Vector3Int(4, 0, 12)); //0
         texture_index_list.Add(new Vector3Int(12, 0, 20)); //1
