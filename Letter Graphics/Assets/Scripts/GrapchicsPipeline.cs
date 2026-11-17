@@ -1,14 +1,21 @@
-using UnityEngine;
-using System.Collections.Generic;
+using NUnit;
 using System;
-
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GrapchicsPipeline : MonoBehaviour
 {
+    Texture2D screen;
+    public GameObject screenGo;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        screen = new Texture2D(1024, 1024);
+        
         Model myModel = new Model();
         myModel.CreateUnityGameObject();
 
@@ -95,10 +102,22 @@ public class GrapchicsPipeline : MonoBehaviour
         print("VERTS DIVIDED#############################");
         Display(VertsDividedByZ(imageAfterEverything));
 
+
+
+
+        Draw(bresh(new Vector2Int(0,0), new Vector2Int(512,512)));
+        screenGo.GetComponent<Renderer>().material.mainTexture = screen;
+        screen.Apply();
+
     }
 
-
-
+    private void Draw(List<Vector2Int> vector2Ints)
+    {
+        foreach (Vector2Int v in vector2Ints)
+        {
+            screen.SetPixel(v.x, v.y, Color.red);
+        }
+    }
 
     private List<Vector4> Homage(List<Vector3> vertices)
     {
@@ -149,6 +168,95 @@ public class GrapchicsPipeline : MonoBehaviour
 
         return vertsDivided;
     }
+
+    public List<Vector2Int> bresh(Vector2Int s, Vector2Int e)
+    {
+        List<Vector2Int> output = new List<Vector2Int>();
+        int dx = e.x - s.x;
+
+        if (dx < 0)
+        {
+            return bresh(e, s);
+        }
+
+        int dy = e.y - s.y;
+
+        if (dy < 0)
+        {
+            return NegY(bresh(NegY(s), NegY(e)));
+        }
+
+        if(dy > dx)
+        {
+            return SwapXY(bresh(SwapXY(s), SwapXY(e)));
+        }
+
+        int D = dy - dx;
+
+        int N = 2 * D;
+
+        int P = 2 * dy;
+
+        int P0 = P - dx;
+
+        output.Add(new Vector2Int(s.x, s.y));
+        while (s.x != e.x)
+        {
+            s.x++;
+
+            if(P0 < 0)
+            {
+                P0 += P; 
+            }
+
+            else
+            {
+                s.y++;
+                P0 += N;
+            }
+
+            output.Add(new Vector2Int(s.x, s.y));
+        }
+
+        return output;
+    }
+
+    public List<Vector2Int> SwapXY(List<Vector2Int> vector2Ints)
+    {
+        List<Vector2Int> swappedList = new List<Vector2Int>();
+
+        foreach (var v in vector2Ints)
+        {
+            swappedList.Add(SwapXY(v));
+        }
+
+        return swappedList;
+    }
+
+    public Vector2Int SwapXY(Vector2Int v)
+    {
+        return new Vector2Int(v.y, v.x);
+    }
+
+
+    public List<Vector2Int> NegY(List<Vector2Int> vector2Ints)
+    {
+        List<Vector2Int> negativeList = new List<Vector2Int>();
+
+        foreach (var v in vector2Ints)
+        {
+            negativeList.Add(NegY(v));
+        }
+
+        return negativeList;
+    }
+
+    public Vector2Int NegY(Vector2Int v)
+    {
+        return new Vector2Int(v.x, -v.y);
+    }
+
+
 
     // Update is called once per frame
     void Update()

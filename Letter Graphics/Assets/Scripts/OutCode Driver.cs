@@ -1,8 +1,12 @@
+using JetBrains.Annotations;
 using NUnit.Framework.Internal;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class OutCodeDriver : MonoBehaviour
 {
+    public GrapchicsPipeline gp;
 
     private void Start()
     {
@@ -21,9 +25,8 @@ public class OutCodeDriver : MonoBehaviour
         Vector2 point9 = new Vector2(0.5f, -2f);
         Vector2 point10 = new Vector2(0.5f, 2f);
 
-        Vector2 point11 = new Vector2(-2f, 0.5f);
-        Vector2 point12 = new Vector2(2f, 0.5f);
-
+        Vector2Int point11 = new Vector2Int(20, 15);
+        Vector2Int point12 = new Vector2Int(30, 8);
 
 
         OutCode outCode1 = new OutCode(new Vector2(0f, -2f));   // "0100" (down)
@@ -61,7 +64,10 @@ public class OutCodeDriver : MonoBehaviour
         bool test8 = outCode1.LineClip(ref point5, ref point6);
         bool test9 = outCode1.LineClip(ref point7, ref point8);
         bool test10 = outCode1.LineClip(ref point9, ref point10);
-        bool test11 = outCode1.LineClip(ref point11, ref point12);
+
+        List<Vector2Int> output = new List<Vector2Int>();
+        output = gp.bresh(point11, point12);
+
 
 
 
@@ -77,7 +83,12 @@ public class OutCodeDriver : MonoBehaviour
         print("Inside viewport (point5 to point6): " + test8);
         print("Outside viewport (point7 to point8): " + test9);
         print("Vertical line (point9 to point10): " + test10);
-        print("Horizontal line (point11 to point12): " + test11);
+        print("BRESHNAMM################################");
+
+        foreach (Vector2Int point in output)
+        {
+            Debug.Log(point);
+        }
 
 
     }
