@@ -17,7 +17,7 @@ public class GrapchicsPipeline : MonoBehaviour
         screen = new Texture2D(1024, 1024);
         
         Model myModel = new Model();
-        myModel.CreateUnityGameObject();
+       // myModel.CreateUnityGameObject();
 
         List<Vector4> verts = Homage(myModel.vertices);
 
@@ -163,7 +163,7 @@ public class GrapchicsPipeline : MonoBehaviour
         List<Vector4> vertsDivided = new List<Vector4>();
         foreach (Vector4 v in verts)
         {
-             vertsDivided.Add(new Vector3(v.x / v.z, v.y / v.z, 1));
+             vertsDivided.Add(new Vector3(v.x / v.z, v.y / v.z, v.z));
         }
 
         return vertsDivided;
@@ -261,6 +261,55 @@ public class GrapchicsPipeline : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        screen = new Texture2D(1024, 1024);
+
+        Model myModel = new Model();
+       // myModel.CreateUnityGameObject();
+
+        List<Vector4> verts = Homage(myModel.vertices);
+
+        Matrix4x4 world = Matrix4x4.TRS(new Vector3(0, 0, 4), Quaternion.identity, Vector3.one);
+
+        Matrix4x4 view = Matrix4x4.LookAt(Vector3.zero, new Vector3(0, 0, 4), Vector3.up);
+
+        Matrix4x4 proj = Matrix4x4.Perspective(90, 1, 1, 1000);
+
+
+        Matrix4x4 supermatrix = proj * view * world;
+
+        List<Vector4> pts = MatrixTransform(supermatrix, verts);
+
+        List<Vector4> projpts = VertsDividedByZ(pts);
+
+        List<Vector2Int> pixelPts = convertTo2D(projpts);
+
+        foreach (Vector3Int face in myModel.faces)
+        {
+            Vector2Int v1 = pixelPts[face.x];
+            Vector2Int v2 = pixelPts[face.y];
+            Vector2Int v3 = pixelPts[face.z];
+
+
+            Draw(bresh(v1, v2));
+
+            Draw(bresh(v2, v3));
+            Draw(bresh(v3, v1));
+
+        }
+        screenGo.GetComponent<Renderer>().material.mainTexture = screen;
+        screen.Apply();
+
+    }
+
+    private List<Vector2Int> convertTo2D(List<Vector4> projpts)
+    {
+      List<Vector2Int> hold = new List<Vector2Int>();
+
+        foreach (Vector4 p in projpts) 
+
+            hold.Add(new Vector2Int( Mathf.RoundToInt((p.x - 1)*1023/2) , Mathf.RoundToInt((p.y-1) * 1023/2   ) ));
+
+         return hold;
     }
 }
