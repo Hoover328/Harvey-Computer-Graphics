@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 
 public class GrapchicsPipeline : MonoBehaviour
 {
     Texture2D screen;
     public GameObject screenGo;
+    float spin;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -269,7 +271,9 @@ public class GrapchicsPipeline : MonoBehaviour
 
         List<Vector4> verts = Homage(myModel.vertices);
 
-        Matrix4x4 world = Matrix4x4.TRS(new Vector3(0, 0, 4), Quaternion.identity, Vector3.one);
+        
+        spin++;
+        Matrix4x4 world = Matrix4x4.TRS(new Vector3(0, 0, 4), Quaternion.AngleAxis(spin, (new Vector3(0, 1, 0)).normalized), Vector3.one);
 
         Matrix4x4 view = Matrix4x4.LookAt(Vector3.zero, new Vector3(0, 0, 4), Vector3.up);
 
